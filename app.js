@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:1337/api/salons?populate=*";
+const API_BASE = process.env.API_URL || "http://localhost:1337";
+const API_URL = `${API_BASE}/api/salons?populate=*`;
 
 let profiles = [];
 
