@@ -19,11 +19,12 @@ let isLoading = false;
 function mapStrapiData(items){
     return items.map(item => {
         return {
-            nom: item.Nom,
-            ville: item.Ville,
-            adresse: item.Adresse,
-            numero: item.Telephone,
-            site: item.Site || "",
+
+            nom: item.Nom || "-",
+            ville: item.Ville || "-",
+            adresse: item.Adresse || "-",
+            numero: item.Telephone ? String(item.Telephone).trim() : "",
+            site: item.Site || "-",
 
             horaires: {
                 lundi: item.Horaires?.Lundi || "-",
@@ -142,13 +143,15 @@ function render(reset = true) {
             dimanche: "-"
         };
 
-        const servicesHtml = p.services.map(s => `
-            <div class="service-row">
-                <div class="service-title">${s.titre || "-"}</div>
-                <div class="service-price">${s.prix ? s.prix + "€" : "-"}</div>
-                <div class="service-time">${s.temps || "-"}</div>
-            </div>
-        `).join("");
+        const servicesHtml = `
+    ${p.services.map(s => `
+        <div class="service-row">
+            <div class="service-title">${s.titre || "-"}</div>
+            <div class="service-price">${s.prix ? s.prix + "€" : "-"}</div>
+            <div class="service-time">${s.temps || "-"}</div>
+        </div>
+    `).join("")}
+`;
 
         const photosHtml = (p.photos || []).map(img =>
             `<img src="${img}" loading="lazy" decoding="async">`
@@ -160,19 +163,34 @@ function render(reset = true) {
         <div class="card ${isFav ? 'favorite-card' : ''}">
 
             <div class="card-header">
-                <div>
-                    <div class="card-title">
-                        ${isFav ? '❤️ ' : ''}${p.nom}
-                    </div>
-                    <div class="card-sub">
-                        ${p.ville} • ${p.adresse}
-                    </div>
-                </div>
+    <div class="card-info">
+        <div class="card-title">
+            ${isFav ? '❤️ ' : ''}${p.nom}
+        </div>
 
-                <button class="fav-btn" onclick="toggleFav('${escapeJsString(p.nom)}')">
-                    ${isFav ? "❤️" : "🤍"}
-                </button>
+        <div class="card-sub">
+            ${p.ville} • ${p.adresse}
+        </div>
+
+        ${p.numero ? `
+            <div class="card-contact phone">
+                📞 <a href="tel:${p.numero}">${p.numero}</a>
             </div>
+        ` : ""}
+
+        ${p.site && p.site !== "-" ? `
+            <div class="card-contact website">
+                🌐 <a href="${p.site}" target="_blank" rel="noopener">
+                    Visiter le site
+                </a>
+            </div>
+        ` : ""}
+    </div>
+
+    <button class="fav-btn" onclick="toggleFav('${escapeJsString(p.nom)}')">
+        ${isFav ? "❤️" : "🤍"}
+    </button>
+</div>
 
             <div class="card-actions">
                 <button onclick="toggleServices(${globalIndex})">🧾 Services</button>
@@ -181,8 +199,8 @@ function render(reset = true) {
             </div>
 
             <div class="services" id="services-${globalIndex}">
-                ${servicesHtml}
-            </div>
+    ${servicesHtml}
+</div>
 
             <div class="photos" id="photos-${globalIndex}">
                 ${photosHtml}

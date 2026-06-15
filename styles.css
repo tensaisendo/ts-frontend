@@ -92,6 +92,12 @@ body{
             animation: fadeIn 0.25s ease forwards;
         }
 
+.card-info{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
         @keyframes fadeIn{
             to{
                 opacity: 1;
@@ -132,6 +138,60 @@ body{
             color: #666;
             margin-top: 3px;
         }
+
+/* CONTACT */
+.card-contact{
+    margin-top:8px;
+    font-size:14px;
+    line-height:1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* lien de base */
+.card-contact a{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 10px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    transition:all .2s ease;
+    width: fit-content;
+    -webkit-tap-highlight-color: transparent;
+     transition: transform .15s ease, background .2s ease;
+}
+
+.card-contact a:active{
+    transform: scale(0.98);
+}
+
+/* téléphone */
+.card-contact.phone a{
+    color:#198754;
+    background:#eaf7ef;
+    border:1px solid #c8ead6;
+}
+
+.card-contact.phone a:hover{
+    background:#d7f3e3;
+    transform: translateY(-1px);
+}
+
+/* site web */
+.card-contact.website a{
+    color:#0d6efd;
+    background:#edf4ff;
+    border:1px solid #cfe2ff;
+}
+
+.card-contact.website a:hover{
+    background:#dbe9ff;
+    transform: translateY(-1px);
+}
 
         /* PRICE BADGE */
         .price-badge{
