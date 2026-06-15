@@ -174,16 +174,16 @@ function render(reset = true) {
 
         ${p.numero ? `
             <div class="card-contact phone">
-                📞 <a href="tel:${p.numero}">${p.numero}</a>
-            </div>
+    <span class="icon">📞</span>
+    <a href="tel:${p.numero}">${p.numero}</a>
+</div>
         ` : ""}
 
         ${p.site && p.site !== "-" ? `
             <div class="card-contact website">
-                🌐 <a href="${p.site}" target="_blank" rel="noopener">
-                    Visiter le site
-                </a>
-            </div>
+    <span class="icon">🌐</span>
+    <a href="${p.site}" target="_blank" rel="noopener">Visiter le site</a>
+</div>
         ` : ""}
     </div>
 
