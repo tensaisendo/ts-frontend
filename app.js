@@ -1,4 +1,7 @@
-const API_BASE = process.env.API_URL || "http://localhost:1337";
+const API_BASE =
+  window.location.hostname === "localhost"
+    ? "http://localhost:1337"
+    : "https://tscms.onrender.com";
 const API_URL = `${API_BASE}/api/salons?populate=*`;
 
 let profiles = [];
